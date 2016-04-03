@@ -1,6 +1,40 @@
+# Genevieve Point#
 import csv
 
-print("Items for Hire - By Genevieve Point")
+# menu()
+print("Items for Hire - By Genevieve Point")# 06/04/2016
+
+
+workbook_file = open('items.csv', 'r')
+workbook_reader = csv.reader(workbook_file)
+
+items_list = []
+
+for row in workbook_reader:
+    # row = row.split()
+    # row_info = row.strip('\n')
+    # items_list.append(row)
+    items_list = row
+    # print(items_list)
+
+counter_strip = 0
+for list in items_list:
+    items_list[counter_strip] = items_list[counter_strip].strip()
+    counter_strip += 1
+
+counter_split = 0
+for item in items_list:
+    items_list[counter_split] = items_list[counter_split].split(',')
+    counter_split += 1
+
+
+counter_main = 0
+for i in items_list:
+    working_list = items_list[counter_main]
+
+    print("$()".format(counter_main, working_list[0], working_list[1], working_list[2]))
+
+workbook_file.close()
 
 
 def menu():
@@ -8,78 +42,56 @@ def menu():
     choice = input()
 
     if choice == "L" or choice == "l":
-        load_items()
-    elif choice == "H" or choice =="h":
+        list_items(items_list)
+        menu()
+    elif choice == "H" or choice == "h":
         hire_item()
+        menu()
     elif choice == "R" or choice == "r":
         return_item()
+        menu()
     elif choice == "A" or choice == "a":
         add_item()
+        menu()
     elif choice == "Q" or choice == "q":
         print("quit()")
     else:
         print("Please enter a valid choice")
         menu()
-
-menu()
-
-
+    def load_items():
+        print("List all items")
 
 
-def load_items():
 
-# reads items file
-    workbook_file = open('items.csv', 'r')
-    workbook_reader = csv.reader(workbook_file)
-    for row in workbook_reader:
-        row = row.strip().splot(',')
-        row_info = row[0], row[1], row[2], row[3]
-        if row_info == "out":
-            print("*")
-        else:
-            print(" ")
-        print(row)
 
-    workbook_file.close()
+# menu()
+
+def list_items(items_list):
+    print("All items on file")
+    if items_list == "out":
+        print("*")
 
 
 def hire_item():
-
-    # allows user to hire an item from items file
-    workbook_file = open('items.csv', 'r')
-    workbook_reader = csv.reader(workbook_file)
-    for row in workbook_reader:
-
-        print(row)
-
-    workbook_file.close()
+    print("Hire an item")
     # for line in lines:
     # if country_name in line:
     #     line = line.strip().split(',')
     #     line_info = line[0], line[1], line[2]
     #     return tuple(line_info)
 
+# menu()
+
 
 def return_item():
+    print("Return an item")
 
-    # allows user to return an item
-    workbook_file = open('items.csv', 'r')
-    workbook_reader = csv.reader(workbook_file)
-    for row in workbook_reader:
-        print(row)
 
-    workbook_file.close()
-
+# menu()
 
 
 def add_item():
-
-    # allows user to add an item to the list
-    workbook_file = open('items.csv', 'w')
-    workbook_writer = csv.writer(workbook_file)
-    for row in workbook_writer.append():
-         row = input("Please enter a new item")
+    print("Add an item for hire")
 
 
-
-    workbook_file.close()
+# menu()
