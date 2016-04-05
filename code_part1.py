@@ -1,102 +1,73 @@
-# Genevieve Point#
-import csv
+# Genevieve Point
 
-# menu()
-# print("Items for Hire - By Genevieve Point")# 06/04/2016
+import csv
 
 
 workbook_file = open('items.csv', 'r')
-workbook_reader = csv.reader(workbook_file)
+# workbook_reader = csv.reader(workbook_file)
+workbook_list = workbook_file.readlines()
 
-sheets_list = []
+counter = 0
+for items in workbook_list:
+    workbook_list[counter] = items.strip()
+    counter += 1
 
-for row in workbook_reader:
-    print(row)
-
-    # row = row.split()
-    # row_info = row.strip('\n')
-    sheets_list.append(row)
-    items_list = row
-    print(items_list)
-    #
-    counter_strip = 0
-    for lists in items_list:
-        items_list[counter_strip] = items_list[counter_strip].strip()
-        counter_strip += 1
-
-    counter_split = 0
-    for items in items_list:
-        items_list[counter_split] = items_list[counter_split].split(',')
-        counter_split += 1
+counter2 = 0
+for items in workbook_list:
+    workbook_list[counter2] = items.split(',')
+    counter2 += 1
 
 
-    counter_main = 0
-    for i in items_list:
-        working_list = items_list[counter_main]
-        counter_main += 1
+counter_main = 0
+blank_space = ''
+for i in workbook_list:
+    working_list = workbook_list[counter_main]
+    spacing_length = 38 - (len(working_list[0] + working_list[1]))
 
-    print("() -{} [()]\t\t\t= $()",format(counter_main, working_list[0], " ", working_list[2], working_list[3])
+    for i in range(1, spacing_length, 1):
+            blank_space += ' '
+            # counter += 1
     # print(working_list)
 
-    workbook_reader.close()
+    if working_list[3] == 'in':
+        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2], " "))
+        counter_main += 1
+        blank_space = ' '
+    elif working_list[3] == 'out':
+        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2],"*"))
+        counter_main += 1
+        blank_space = ' '
+    #
+    # print("{} - {} [{}]{}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], ' ', working_list[2], working_list[3]))
+    # counter_main += 1
+    # blank_string = ' '
+
+# print(workbook_list)
 
 
-    # print(sheets_list)
-# def menu():
-#     print("Menu: \n (L)ist all items \n (H)ire an item \n (R)eturn an item \n (A)dd an item \n (Q)uit \n")
-#     choice = input()
-#
-#     if choice == "L" or choice == "l":
-#         list_items()
-#         menu()
-#     elif choice == "H" or choice == "h":
-#         hire_item()
-#         menu()
-#     elif choice == "R" or choice == "r":
-#         return_item()
-#         menu()
-#     elif choice == "A" or choice == "a":
-#         add_item()
-#         menu()
-#     elif choice == "Q" or choice == "q":
-#         print("quit()")
-#     else:
-#         print("Please enter a valid choice")
-#         menu()
-#
+# print(workbook_list)
+
+workbook_file.close()
 
 
-    # def load_items():
-    #     print("List all items")
+def menu():
+    print("Menu: \n (L)ist all items \n (H)ire an item \n (R)eturn an item \n (A)dd an item \n (Q)uit")
+    choice = input()
 
-
-
-
-# menu()
-
-# def list_items(items_list):
-#     print("All items on file")
-    # if items_list == "out":
-    #     print("*")
-
-
-# def hire_item():
-#     print("Hire an item")
-#     for line in lines:
-#     if country_name in line:
-#         line = line.strip().split(',')
-#         line_info = line[0], line[1], line[2]
-    #     return tuple(line_info)
-
-# menu()
-
-
-def return_item():
-    print("Return an item")
-
-
-# menu()
-
-
-def add_item():
-    print("Add an item for hire")
+    if choice == "L" or choice == "l":
+        print("Load item")
+        menu()
+    elif choice == "H" or choice == "h":
+        print("Hire item")
+        menu()
+    elif choice == "R" or choice == "r":
+        print("Return an item")
+        menu()
+    elif choice == "A" or choice == "a":
+        print("Add an item")
+        menu()
+    elif choice == "Q" or choice == "q":
+        quit()
+    else:
+        print("Please enter a valid choice")
+        menu()
