@@ -1,6 +1,6 @@
 # Genevieve Point
-
 import csv
+
 # Opens the file in a table format
 workbook_file = open('items.csv', 'r')
 workbook_list = workbook_file.readlines()
@@ -49,19 +49,19 @@ def menu():
     choice = input()
 
     if choice == "L" or choice == "l":
-        list_all_items()
-        menu()
+        return list_all_items()
+        return menu()
     elif choice == "H" or choice == "h":
-        print("Hire item")
-        menu()
+        return hire_item()
+        return menu()
     elif choice == "R" or choice == "r":
-        print("Return an item")
-        menu()
+        return return_item
+        return menu()
     elif choice == "A" or choice == "a":
-        add_item()
-        menu()
+        return add_item()
+        return menu()
     elif choice == "Q" or choice == "q":
-        quit()
+        return quit()
     else:
         print("Please enter a valid choice")
         menu()
