@@ -17,12 +17,15 @@ def main():
         main()
     elif choice == "H" or choice == "h":
         hire_item(load_item_list())
+        save_items(load_item_list())
         main()
     elif choice == "R" or choice == "r":
         return_item()
+        save_items(load_item_list())
         main()
     elif choice == "A" or choice == "a":
-        add_item()
+        add_item(load_item_list())
+        save_items(load_item_list())
         main()
     elif choice == "Q" or choice == "q":
         return quit()
@@ -36,12 +39,6 @@ def load_item_list():
     workbook_file = open('items.csv', 'r')
     workbook_list = workbook_file.readlines()
 
-    # workbook_items = []
-    #
-    # for row in workbook_reader:
-    #     workbook_items.append(row)
-
-
     # Separates the rows from each other
     counter = 0
     for items in workbook_list:
@@ -54,86 +51,121 @@ def load_item_list():
         workbook_list[counter2] = items.split(',')
         counter2 += 1
 
-    workbook_tuple = tuple(workbook_list)
+    # workbook_tuple = tuple(workbook_list)
 
-    # # Formats the prices to sit in the same position in each row
-    # counter_main = 0
-    # blank_space = ''
-    # for i in workbook_list:
-    #     working_list = workbook_list[counter_main]
-    #     spacing_length = 35 - (len(working_list[0] + working_list[1]))
-    #
-    #     for i in range(1, spacing_length, 1):
-    #         blank_space += ' '
-    #         counter += 1
-    #     # print(working_list)
-    #
-    #     if working_list[3] == 'in':
-    #         print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2], " "))
-    #         counter_main += 1
-    #         blank_space = ' '
-    #     elif working_list[3] == 'out':
-    #         print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2],"*"))
-    #         counter_main += 1
-    #         blank_space = ' '
+    # workbook_file.close()
 
-    workbook_file.close()
-
-    return workbook_tuple
+    return workbook_list
 
 
-def list_all_items(workbook_tuple):
+def list_all_items(workbook_list):
+
+    print("All items on file (* indicates item out on hire)")
 
     # Formats the prices to sit in the same position in each row
     counter = 0
     counter_main = 0
+    blank_space = ' '
+    for i in workbook_list:
+        working_list = workbook_list[counter_main]
+        spacing_length = 75 - (len(working_list[0] + working_list[1]))
+
+        for i in range(1, spacing_length, 1):
+            blank_space += ' '
+            counter += 1
+
+        if working_list[3] == 'in':
+            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2], " "))
+            counter_main += 1
+            blank_space = ' '
+        elif working_list[3] == 'out':
+            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2], "*"))
+            counter_main += 1
+            blank_space = ' '
+
+        return working_list
+
+
+def hire_item(workbook_list):
+    print("All items available for hire")
+
+    counter = 0
+    counter_main = 0
     blank_space = ''
-    for i in workbook_tuple:
-        working_tuple = workbook_tuple[counter_main]
-        spacing_length = 35 - (len(working_tuple[0] + working_tuple[1]))
+    for i in workbook_list:
+        working_list = workbook_list[counter_main]
+        spacing_length = 35 - (len(working_list[0] + working_list[1]))
 
         for i in range(1, spacing_length, 1):
             blank_space += ' '
             counter += 1
         # print(working_list)
 
-        if working_tuple[3] == 'in':
-            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_tuple[0], working_tuple[1], blank_space, working_tuple[2], " "))
-            counter_main += 1
-            blank_space = ' '
-        elif working_tuple[3] == 'out':
-            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_tuple[0], working_tuple[1], blank_space, working_tuple[2],"*"))
-            counter_main += 1
-            blank_space = ' '
-
-    return counter_main, blank_space
-
-
-def hire_item(working_tuple):
-    print("All items available to hire")
-    counter_main = 0
-    blank_space = ' '
-
-    if working_tuple[3] == 'in':
-        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_tuple[0], working_tuple[1], blank_space, working_tuple[2]))
+    while working_list[3] == 'in':
+        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(counter_main, working_list[0], working_list[1], blank_space, working_list[2]))
         counter_main += 1
-        # blank_space = ' '
-        print(working_tuple)
+        blank_space = ' '
+        print(working_list)
+
 
 def return_item():
     print("Return an item")
 #
 
 
-def add_item():
-    print("Add an item")
+def add_item(workbook_tuple):
+    print("Add an item \n Please enter the details of the new item")
 
-    # for row in working_list:
-    #     workbook_list.extend(row)
+    item_name = input(str("Item name: "))
+    item_description = input(str("Description :"))
+    item_price = input(str("Price per day: "))
+
+    # item_name = ''.join(item_name)
+    # item_description = ''.join(item_description)
+    # item_price = ''.join(item_price)
+
+    # new_item_list = []
+
+    new_item_list = [item_name, item_description, item_price]
+    # new_item_list = new_item_list.append(new_item_list)
+
+    for row in new_item_list:
+        new_item_list. append(row)
+
+    print(new_item_list)
+
+    # new_item_string = []
+    # for item in new_item_list:
+    #     new_item_string.append(new_item_list)
+
+    # new_item_tuple = tuple(new_item_string)
     #
-    #     workbook_list[0] = input("Item name: ")
-    #     workbook_list[1] = input("Description: ")
-    #     workbook_list[2] = input("Price per day: ")
+    # workbook_tuple = (workbook_tuple + new_item_tuple)
+    workbook_list = list(workbook_tuple)
+    workbook_list = (workbook_list + new_item_list)
+
+    print(workbook_list)
+
+    # workbook_tuple = tuple(workbook_list)
+
+    save_items(workbook_list)
+
+    return workbook_list
+
+
+def save_items(workbook_list):
+
+    workbook_file = open("items.csv", 'w')
+    workbook_writer = csv.writer(workbook_file)
+
+    # workbook_list = list(workbook_tuple)
+
+    # print(workbook_list)
+
+    for row in workbook_list:
+        workbook_writer.writerow(row)
+
+    workbook_file.close()
 
 
 main()
