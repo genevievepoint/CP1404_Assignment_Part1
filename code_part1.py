@@ -7,8 +7,6 @@ MENU = "\n Menu: \n (L)ist all items \n (H)ire an item \n (R)eturn an item \n (A
 def main():
     print("Items for Hire - By Genevieve Point")
     load_item_list()
-    # print(load_item_list())
-    print(MENU)
 
     item_list = load_item_list()
     # print(item_list)
@@ -20,39 +18,22 @@ def main():
     while chosenMenuOption != 'Q' or chosenMenuOption != 'q':
         if chosenMenuOption == 'L' or chosenMenuOption == 'l':
             list_all_items(item_list)
+            # save_items(item_list)
         elif chosenMenuOption == 'H'or chosenMenuOption == 'h':
             hire_item(item_list)
+            # save_items(item_list)
         elif chosenMenuOption == 'R' or chosenMenuOption == 'r':
             return_item(item_list)
+            # save_items(item_list)
         elif chosenMenuOption == 'A' or chosenMenuOption == 'a':
             add_item(item_list)
+            # save_items(item_list)
         else:
             print("Please enter a valid choice")
             print(MENU)
             print()
         chosenMenuOption = input('Input your selection: ')
     return quit()
-
-
-    # if choice == "L" or choice == "l":
-    #     list_all_items(item_list)
-    #     main()
-    # elif choice == "H" or choice == "h":
-    #     hire_item(item_list)
-    #     save_items(item_list)
-    #     main()
-    # elif choice == "R" or choice == "r":
-    #     return_item(item_list)
-    #     save_items(item_list)
-    #     main()
-    # elif choice == "A" or choice == "a":
-    #     add_item(item_list)
-    #     save_items(item_list)
-    #     main()
-    # elif choice == "Q" or choice == "q":
-    #     return quit()
-    # else:
-    #     print("Please enter a valid choice")
 
 
 def load_item_list():
@@ -87,7 +68,7 @@ def list_all_items(item_list):
     blank_space = ' '
     for i in item_list:
         working_items = item_list[main_counter]
-        spacing_length = 35 - (len(working_items[0] + working_items[1]))
+        spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
         for i in range(1, spacing_length, 1):
             blank_space += ' '
@@ -113,7 +94,7 @@ def hire_item(item_list):
     blank_space = ''
     for i in item_list:
         working_items = item_list[main_counter]
-        spacing_length = 35 - (len(working_items[0] + working_items[1]))
+        spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
         for i in range(1, spacing_length, 1):
             blank_space += ' '
@@ -138,7 +119,7 @@ def return_item(item_list):
     blank_space = ''
     for i in item_list:
         working_items = item_list[main_counter]
-        spacing_length = 35 - (len(working_items[0] + working_items[1]))
+        spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
         for i in range(1, spacing_length, 1):
             blank_space += ' '
@@ -151,52 +132,49 @@ def return_item(item_list):
             blank_space = ' '
             # print(working_items)
 
-    return item_list
+    # return item_list
 
 
 def add_item(item_list):
+
     print("Add an item \n Please enter the details of the new item")
 
     item_name = input(str("Item name: "))
     while item_name == ' ':
         item_name = input("Item name: ")
-
     item_description = input(str("Description: "))
     while item_description == ' ':
         item_description = input("Description: ")
-
     item_price = input("Price per day: ")
-    while item_price == ' ':
+    while item_price == ' ' and item_price == str:
         item_price = input("Price per day: ")
 
-    # item_name = ''.join(item_name)
-    # item_description = ''.join(item_description)
-    # item_price = ''.join(item_price)
+    item_availability = "In"
 
     new_item_list = []
 
-
     # .append for each
-    for item_name in new_item_list:
-        new_item_list.append(item_name)
-        for item_description in new_item_list:
-            new_item_list.append(item_description)
-            for item_price in new_item_list:
-                new_item_list.append(item_price)
-    # new_item_list = [item_name, item_description, item_price]
-    # new_item_list = new_item_list.append(new_item_list)
+    # for item_name in new_item_list:
+    #     new_item_list.append(item_name)
+    # for item_description in new_item_list:
+    #     new_item_list.append(item_description)
+    # for item_price in new_item_list:
+    #     new_item_list.append(item_price)
+    # for item_availability in new_item_list:
+    #     new_item_list.append(item_availability)
+    #         new_item_list = new_item_list.append(new_item_list)
 
-    for new_item_list in item_list:
-        item_list. append(new_item_list)
+        # new_item_list = [item_name, item_description, item_price, item_availability]
 
+    new_item_list = [item_name, item_description, item_price, item_availability]
     print(new_item_list)
 
-    # new_item_string = []
-    # for item in new_item_list:
-    #     new_item_string.append(new_item_list)
+    for new_item_list in item_list:
+        item_list.append(new_item_list)
 
-    item_list.append(new_item_list)
-    # .append again
+    # for new_item_list in item_list:
+    #     item_list.append(new_item_list)
+    #
     print(item_list)
 
     # workbook_tuple = tuple(workbook_list)
@@ -211,12 +189,8 @@ def save_items(item_list):
     workbook_file = open("items.csv", 'w')
     workbook_writer = csv.writer(workbook_file)
 
-    # workbook_list = list(workbook_tuple)
-
-    # print(workbook_list)
-
-    for row in item_list:
-        workbook_writer.writerow(row)
+    for items in item_list:
+        workbook_writer.writerow(items)
 
     workbook_file.close()
 
