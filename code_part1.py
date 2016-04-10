@@ -1,7 +1,11 @@
 # Genevieve Point
 # 11 April 2016
 # https://github.com/genevievepoint/CP1404_Assignment_Part1
-#
+# This program is a lending and returning service that allows users to hire and return items as well as add in new items
+#     it tells the user what items are stored, and whether they are available or not. All items are automatically saved
+#     when the user quits.
+
+
 import csv
 
 MENU = "\n Menu: \n (L)ist all items \n (H)ire an item \n (R)eturn an item \n (A)dd an item \n (Q)uit"
@@ -39,7 +43,8 @@ def main():
         print()
         chosenMenuOption = input('Input your selection: ')
     save_items(item_list)
-    return quit()
+    quit()
+    print("Have a nice day!")
 
 
 # def load_items_list:
@@ -56,6 +61,7 @@ def main():
 #         count2 += 1
 
 #     close workbook file
+#
 #     return item_list
 
 
@@ -123,11 +129,14 @@ def list_all_items(item_list):
 #             blank_space += ' '
 #             count += 1
 
-#         if working_items[3] == 'in'
+#         if working_items[3] == 'in':
 #             print formatted string
 #             blank_space += ' '
 #             main_count += 1
-
+#         elif working_items[3] == 'out':
+#             pass
+#         else:
+#             print no items message
 #         users_choice = int(input(prompt))
 #         hire_select = item_list[users_choice]
 #         hire_select[3] = 'out'
@@ -145,21 +154,22 @@ def hire_item(item_list):
         working_items = item_list[main_counter]
         spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
-        for i in range(1, spacing_length, 1):
+        for item in range(1, spacing_length, 1):
             blank_space += ' '
             counter += 1
-        print(working_items)
 
-        for i in working_items:
-            if working_items[3] == 'in':
-                print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
-                blank_space = ' '
-                main_counter += 1
-                # print(working_items)
+        if working_items[3] == 'in':
+            print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
+            blank_space = ' '
+            main_counter += 1
 
-            else:
-                print("no items available for hire")
+        elif working_items[3] == 'out':
+            pass
 
+        else:
+            print("no items available for hire")
+
+        # Asks the user what item they would like to hire and checks it out
         users_choice = input("Please enter an item number: ")
         if users_choice != int:
             users_choice = int(input("Please enter an item number: "))
@@ -175,6 +185,7 @@ def hire_item(item_list):
 def return_item(item_list):
     print("Return an item")
 
+    # Formats the content for the user
     counter = 0
     main_counter = 0
     blank_space = ''
@@ -185,13 +196,14 @@ def return_item(item_list):
         for i in range(1, spacing_length, 1):
             blank_space += ' '
             counter += 1
-        # print(working_items)
 
         if working_items[3] == 'out':
             print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
             main_counter += 1
             blank_space = ' '
-            print(working_items)
+
+        elif working_items[3] == 'in':
+            pass
 
         else:
             print("No items are hired")
@@ -214,12 +226,15 @@ def add_item(item_list):
     # Asks the user to input the information about the new item
     item_name = input(str("Item name: "))
     while item_name == '':
+        print("Item name cannot be blank")
         item_name = input("Item name: ")
     item_description = input(str("Description: "))
     while item_description == '':
+        print("Item Description cannot be blank")
         item_description = input("Description: ")
     item_price = input("Price per day: ")
-    while item_price == ' ' and item_price == str:
+    while item_price == '' and item_price == str:
+        print("Item price must be a number and cannot be blank")
         item_price = input("Price per day: ")
 
     # Sets the items availability to in automatically
