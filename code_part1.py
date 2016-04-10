@@ -26,12 +26,14 @@ def main():
             return_item(item_list)
             # save_items(item_list)
         elif chosenMenuOption == 'A' or chosenMenuOption == 'a':
-            add_item(item_list)
+            item_list = add_item(item_list)
+            print(item_list)
             # save_items(item_list)
         else:
             print("Please enter a valid choice")
-            print(MENU)
-            print()
+
+        print(MENU)
+        print()
         chosenMenuOption = input('Input your selection: ')
     return quit()
 
@@ -53,13 +55,13 @@ def load_item_list():
         item_list[counter2] = items.split(',')
         counter2 += 1
 
-    # workbook_file.close()
+    workbook_file.close()
 
     return item_list
 
 
 def list_all_items(item_list):
-
+    # print(item_list)
     print("All items on file (* indicates item out on hire)")
 
     # Formats the prices to sit in the same position in each row
@@ -76,12 +78,12 @@ def list_all_items(item_list):
 
         if working_items[3] == 'in':
             print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " "))
-            main_counter += 1
             blank_space = ' '
+            main_counter += 1
         elif working_items[3] == 'out':
             print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " * "))
-            main_counter += 1
             blank_space = ' '
+            main_counter += 1
 
     return item_list
 
@@ -107,9 +109,13 @@ def hire_item(item_list):
             blank_space = ' '
             print(working_items)
 
-    hiring_item = input("Enter an item number: ")
+        users_choice = input("Please enter an item number: ")
+        hire_select = item_list[users_choice]
+        hire_select[3] = "out"
+        item_list = hire_select
 
     return item_list
+
 
 def return_item(item_list):
     print("Return an item")
@@ -149,37 +155,12 @@ def add_item(item_list):
     while item_price == ' ' and item_price == str:
         item_price = input("Price per day: ")
 
-    item_availability = "In"
-
-    new_item_list = []
-
-    # .append for each
-    # for item_name in new_item_list:
-    #     new_item_list.append(item_name)
-    # for item_description in new_item_list:
-    #     new_item_list.append(item_description)
-    # for item_price in new_item_list:
-    #     new_item_list.append(item_price)
-    # for item_availability in new_item_list:
-    #     new_item_list.append(item_availability)
-    #         new_item_list = new_item_list.append(new_item_list)
-
-        # new_item_list = [item_name, item_description, item_price, item_availability]
+    item_availability = "in"
 
     new_item_list = [item_name, item_description, item_price, item_availability]
     print(new_item_list)
 
-    for new_item_list in item_list:
-        item_list.append(new_item_list)
-
-    # for new_item_list in item_list:
-    #     item_list.append(new_item_list)
-    #
-    print(item_list)
-
-    # workbook_tuple = tuple(workbook_list)
-
-    # save_items(workbook_list)
+    item_list.append(new_item_list)
 
     return item_list
 
@@ -189,8 +170,8 @@ def save_items(item_list):
     workbook_file = open("items.csv", 'w')
     workbook_writer = csv.writer(workbook_file)
 
-    for items in item_list:
-        workbook_writer.writerow(items)
+    for items_list in item_list:
+        workbook_writer.writerow(items_list)
 
     workbook_file.close()
 
