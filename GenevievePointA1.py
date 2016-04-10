@@ -16,32 +16,26 @@ def main():
     load_item_list()
 
     item_list = load_item_list()
-    # print(item_list)
 
-    # choice = input()
     print(MENU)
     print()
-    chosenMenuOption = input('Input your selection: ')
-    while chosenMenuOption != 'Q' or chosenMenuOption != 'q':
-        if chosenMenuOption == 'L' or chosenMenuOption == 'l':
+    chosen_menu_option = input('Input your selection: ')
+    while chosen_menu_option != 'Q' or chosen_menu_option != 'q':
+        if chosen_menu_option == 'L' or chosen_menu_option == 'l':
             list_all_items(item_list)
-            # save_items(item_list)
-        elif chosenMenuOption == 'H'or chosenMenuOption == 'h':
+        elif chosen_menu_option == 'H'or chosen_menu_option == 'h':
             hire_item(item_list)
-            # save_items(item_list)
-        elif chosenMenuOption == 'R' or chosenMenuOption == 'r':
+        elif chosen_menu_option == 'R' or chosen_menu_option == 'r':
             return_item(item_list)
-            # save_items(item_list)
-        elif chosenMenuOption == 'A' or chosenMenuOption == 'a':
+        elif chosen_menu_option == 'A' or chosen_menu_option == 'a':
             item_list = add_item(item_list)
             print(item_list)
-            # save_items(item_list)
         else:
             print("Please enter a valid choice")
 
         print(MENU)
         print()
-        chosenMenuOption = input('Input your selection: ')
+        chosen_menu_option = input('Input your selection: ')
     save_items(item_list)
     quit()
     print("Have a nice day!")
@@ -145,7 +139,7 @@ def list_all_items(item_list):
 #         return item_list
 
 def hire_item(item_list):
-    print("All items available for hire")
+    print("All items that are available for hire")
 
     counter = 0
     main_counter = 0
@@ -163,27 +157,28 @@ def hire_item(item_list):
             blank_space = ' '
             main_counter += 1
 
+            # Asks the user what item they would like to hire and checks it out
+            users_choice = input("Please enter an item number: ")
+            if users_choice != int:
+                users_choice = int(input("Please enter an item number: "))
+            hire_select = item_list[users_choice]
+            hire_select[3] = "out"
+            item_list[users_choice] = hire_select
+
+            print(users_choice, working_items[0], "has been hired for", working_items[2])
+
         elif working_items[3] == 'out':
             pass
 
-        else:
-            print("no items available for hire")
+    else:
+        print("No items available for hire")
 
-        # Asks the user what item they would like to hire and checks it out
-        users_choice = input("Please enter an item number: ")
-        if users_choice != int:
-            users_choice = int(input("Please enter an item number: "))
-        hire_select = item_list[users_choice]
-        hire_select[3] = "out"
-        item_list[users_choice] = hire_select
-
-        print(users_choice, working_items[0], "has been hired for", working_items[2])
 
         return item_list
 
 
 def return_item(item_list):
-    print("Return an item")
+    print("Items able to be returned")
 
     # Formats the content for the user
     counter = 0
@@ -202,20 +197,21 @@ def return_item(item_list):
             main_counter += 1
             blank_space = ' '
 
+            users_choice = input("Please enter an item number: ")
+            if users_choice != int:
+                users_choice = int(input("Please enter an item number: "))
+            hire_select = item_list[users_choice]
+            hire_select[3] = "in"
+            item_list[users_choice] = hire_select
+
+            print(hire_select, working_items[0], "has been returned")
+
         elif working_items[3] == 'in':
             pass
 
-        else:
-            print("No items are hired")
+    else:
+        print("No items are hired")
 
-        users_choice = input("Please enter an item number: ")
-        if users_choice != int:
-            users_choice = int(input("Please enter an item number: "))
-        hire_select = item_list[users_choice]
-        hire_select[3] = "in"
-        item_list[users_choice] = hire_select
-
-        print(hire_select, working_items[0], "has been returned")
         return item_list
 
 
