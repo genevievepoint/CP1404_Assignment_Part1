@@ -40,49 +40,12 @@ def main():
     quit()
     print("Have a nice day!")
 
-
-# def load_items_list:
-#     open csv
-#     read csv
-#     count items in file
-#     split the items in the file
-#     close workbook file
-#     return item_list
-
-#
-# def load_item_list():
-#     # Opens the file in a table format
-#     workbook_file = open('items.csv', 'r')
-#     item_list = workbook_file.readlines()
-#
-#     # Separates the rows from each other
-#     counter = 0
-#     for items in item_list:
-#         item_list[counter] = items.strip()
-#         counter += 1
-#
-#     # Separates the items in each row from each other
-#     counter2 = 0
-#     for items in item_list:
-#         item_list[counter2] = items.split(',')
-#         counter2 += 1
-#
-#     workbook_file.close()
-#
-#     return item_list
-
 def load_items(filename):
     results = []
     with open(filename, 'r') as file_in:
         lines = file_in.readlines()
         results = [line.strip().split(',') for line in lines]
-
-    # print(results)
     return results
-
-def item_list(results):
-
-
 
 def list_all_items(results):
     print(results)
@@ -92,9 +55,9 @@ def list_all_items(results):
     counter = 0
     main_counter = 0
     blank_space = ' '
-    for i in item_list:
-        working_items = item_list[main_counter]
-        spacing_length = 45 - (len(working_items[0] + working_items[1]))
+    for i in results:
+        working_items = results[main_counter]
+        spacing_length = 50 - (len(working_items[0] + working_items[1]))
 
         for i in range(1, spacing_length, 1):
             blank_space += ' '
@@ -109,7 +72,44 @@ def list_all_items(results):
             main_counter += 1
             blank_space = ' '
 
-    return item_list
+    return results
+
+def hire_item(results):
+    print("All items that are available for hire")
+
+    counter = 0
+    main_counter = 0
+    blank_space = ''
+    for i in results:
+        working_items = results[main_counter]
+        spacing_length = 45 - (len(working_items[0] + working_items[1]))
+
+        for item in range(1, spacing_length, 1):
+            blank_space += ' '
+            counter += 1
+
+        if working_items[3] == 'in':
+            print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
+            blank_space = ' '
+            main_counter += 1
+
+            # Asks the user what item they would like to hire and checks it out
+            users_choice = input("Please enter an item number: ")
+            if users_choice != int:
+                users_choice = int(input("Please enter an item number: "))
+            hire_select = results[users_choice]
+            hire_select[3] = "out"
+            results[users_choice] = hire_select
+
+            print(users_choice, working_items[0], "has been hired for", working_items[2])
+
+        elif working_items[3] == 'out':
+            pass
+
+    else:
+        print("No items available for hire")
+
+        return results
 
 
 # def hire_item(item_list):
@@ -141,53 +141,15 @@ def list_all_items(results):
 
 #         return item_list
 
-def hire_item(item_list):
-    print("All items that are available for hire")
-
-    counter = 0
-    main_counter = 0
-    blank_space = ''
-    for i in item_list:
-        working_items = item_list[main_counter]
-        spacing_length = 45 - (len(working_items[0] + working_items[1]))
-
-        for item in range(1, spacing_length, 1):
-            blank_space += ' '
-            counter += 1
-
-        if working_items[3] == 'in':
-            print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
-            blank_space = ' '
-            main_counter += 1
-
-            # Asks the user what item they would like to hire and checks it out
-            users_choice = input("Please enter an item number: ")
-            if users_choice != int:
-                users_choice = int(input("Please enter an item number: "))
-            hire_select = item_list[users_choice]
-            hire_select[3] = "out"
-            item_list[users_choice] = hire_select
-
-            print(users_choice, working_items[0], "has been hired for", working_items[2])
-
-        elif working_items[3] == 'out':
-            pass
-
-    else:
-        print("No items available for hire")
-
-        return item_list
-
-
-def return_item(item_list):
+def return_item(results):
     print("Items able to be returned")
 
     # Formats the content for the user
     counter = 0
     main_counter = 0
     blank_space = ''
-    for i in item_list:
-        working_items = item_list[main_counter]
+    for i in results:
+        working_items = results[main_counter]
         spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
         for i in range(1, spacing_length, 1):
@@ -202,9 +164,9 @@ def return_item(item_list):
             users_choice = input("Please enter an item number: ")
             if users_choice != int:
                 users_choice = int(input("Please enter an item number: "))
-            hire_select = item_list[users_choice]
+            hire_select = results[users_choice]
             hire_select[3] = "in"
-            item_list[users_choice] = hire_select
+            results[users_choice] = hire_select
 
             print(hire_select, working_items[0], "has been returned")
 
@@ -214,7 +176,7 @@ def return_item(item_list):
     else:
         print("No items are hired")
 
-        return item_list
+        return results
 
 
 def add_item(item_list):
@@ -248,21 +210,11 @@ def add_item(item_list):
     return item_list
 
 
-# def save_items(item_list):
-#
-#     workbook_file = open("items.csv", 'w')
-#     workbook_writer = csv.writer(workbook_file)
-#
-#     # Overwrite all data in file with item list and any changes made
-#     for items in item_list:
-#         workbook_writer.writerow(items)
-#
-#     workbook_file.close()
-
 def save_items(items, filename):
     with open(filename, 'w') as file_out:
         lines = ['m'.join(item) for item in items]
         for line in lines:
             file_out.write('{}\n'.format(line))
+
 
 main()
