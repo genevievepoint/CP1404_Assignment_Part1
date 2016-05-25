@@ -12,4 +12,4 @@ class Item:
         return self. symbol + str(round(price, 2))
 
     def __str__(self):
-        return '{} ({})'.format(self.name, self.description)
+        return '{} ({})'.format(self.name, self.description, self.price, self.status)

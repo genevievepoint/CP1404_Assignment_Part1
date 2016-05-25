@@ -46,12 +46,12 @@ def load_items(filename):
     with open(filename, 'r') as file_in:
         lines = file_in.readlines()
         results = [line.strip().split(',') for line in lines]
-        print(results)
+        # print(results)
     return results
 
 
 def list_all_items(results):
-    print(results)
+    # print(results)
     print("All items on file (* indicates item out on hire)")
 
     # Formats the prices to sit in the same position in each row
@@ -62,7 +62,7 @@ def list_all_items(results):
         working_items = results[main_counter]
     spacing_length = 50 - (len(working_items[0] + working_items[1]))
 
-    print(working_items)
+    # print(working_items)
 
     for i in range(1, spacing_length, 1):
         blank_space += ' '
@@ -77,6 +77,7 @@ def list_all_items(results):
         main_counter += 1
         blank_space = ' '
 
+        print(working_items)
         return results
 
 
@@ -225,4 +226,4 @@ def save_items(items, filename):
             file_out.write('{}\n'.format(line))
 
 
-main()
+# main()
