@@ -36,16 +36,19 @@ def main():
         print(MENU)
         print()
         chosen_menu_option = input('Input your selection: ')
-    save_items(item_list)
+    save_items(item_list, filename='items.csv')
     quit()
     print("Have a nice day!")
+
 
 def load_items(filename):
     results = []
     with open(filename, 'r') as file_in:
         lines = file_in.readlines()
         results = [line.strip().split(',') for line in lines]
+        print(results)
     return results
+
 
 def list_all_items(results):
     print(results)
@@ -57,22 +60,25 @@ def list_all_items(results):
     blank_space = ' '
     for i in results:
         working_items = results[main_counter]
-        spacing_length = 50 - (len(working_items[0] + working_items[1]))
+    spacing_length = 50 - (len(working_items[0] + working_items[1]))
 
-        for i in range(1, spacing_length, 1):
-            blank_space += ' '
-            counter += 1
+    print(working_items)
 
-        if working_items[3] == 'in':
-            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " "))
-            main_counter += 1
-            blank_space = ' '
-        elif working_items[3] == 'out':
-            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " * "))
-            main_counter += 1
-            blank_space = ' '
+    for i in range(1, spacing_length, 1):
+        blank_space += ' '
+        counter += 1
 
-    return results
+    if working_items[3] == 'in':
+        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " "))
+        main_counter += 1
+        blank_space = ' '
+    elif working_items[3] == 'out':
+        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " * "))
+        main_counter += 1
+        blank_space = ' '
+
+        return results
+
 
 def hire_item(results):
     print("All items that are available for hire")
@@ -82,34 +88,34 @@ def hire_item(results):
     blank_space = ''
     for i in results:
         working_items = results[main_counter]
-        spacing_length = 45 - (len(working_items[0] + working_items[1]))
+    spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
-        for item in range(1, spacing_length, 1):
-            blank_space += ' '
-            counter += 1
+    for item in range(1, spacing_length, 1):
+        blank_space += ' '
+        counter += 1
 
-        if working_items[3] == 'in':
-            print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
-            blank_space = ' '
-            main_counter += 1
+    if working_items[3] == 'in':
+        print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
+        blank_space = ' '
+        main_counter += 1
 
-            # Asks the user what item they would like to hire and checks it out
-            users_choice = input("Please enter an item number: ")
-            if users_choice != int:
-                users_choice = int(input("Please enter an item number: "))
+        # Asks the user what item they would like to hire and checks it out
+        users_choice = input("Please enter an item number: ")
+        if users_choice != int:
+            users_choice = int(input("Please enter an item number: "))
             hire_select = results[users_choice]
             hire_select[3] = "out"
             results[users_choice] = hire_select
 
-            print(users_choice, working_items[0], "has been hired for", working_items[2])
+        print(users_choice, working_items[0], "has been hired for", working_items[2])
 
-        elif working_items[3] == 'out':
-            pass
+    elif working_items[3] == 'out':
+        pass
 
     else:
         print("No items available for hire")
 
-        return results
+    return results
 
 
 # def hire_item(item_list):
@@ -120,7 +126,7 @@ def hire_item(results):
 #     blank_space = ' '
 #     for i in item_list:
 #         working_item = item_list[main_counter
-#         spacing_length = total length - length of working_items[0] and workin_items[1]
+#         spacing_length = total length - length of working_items[0] and working_items[1]
 
 #         for i in range(1, spacing_length, 1):
 #             blank_space += ' '
@@ -150,28 +156,28 @@ def return_item(results):
     blank_space = ''
     for i in results:
         working_items = results[main_counter]
-        spacing_length = 45 - (len(working_items[0] + working_items[1]))
+    spacing_length = 45 - (len(working_items[0] + working_items[1]))
 
-        for i in range(1, spacing_length, 1):
-            blank_space += ' '
-            counter += 1
+    for i in range(1, spacing_length, 1):
+        blank_space += ' '
+        counter += 1
 
-        if working_items[3] == 'out':
-            print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
-            main_counter += 1
-            blank_space = ' '
+    if working_items[3] == 'out':
+        print("{} - {} ({}){}\t\t\t= ${}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2]))
+        main_counter += 1
+        blank_space = ' '
 
-            users_choice = input("Please enter an item number: ")
-            if users_choice != int:
-                users_choice = int(input("Please enter an item number: "))
+        users_choice = input("Please enter an item number: ")
+        if users_choice != int:
+            users_choice = int(input("Please enter an item number: "))
             hire_select = results[users_choice]
             hire_select[3] = "in"
             results[users_choice] = hire_select
 
             print(hire_select, working_items[0], "has been returned")
 
-        elif working_items[3] == 'in':
-            pass
+    elif working_items[3] == 'in':
+        pass
 
     else:
         print("No items are hired")
@@ -188,10 +194,12 @@ def add_item(item_list):
     while item_name == '':
         print("Item name cannot be blank")
         item_name = input("Item name: ")
+
     item_description = input(str("Description: "))
     while item_description == '':
         print("Item Description cannot be blank")
         item_description = input("Description: ")
+
     item_price = input("Price per day: ")
     while item_price == '' or item_price == str:
         print("Item price must be a number and cannot be blank")

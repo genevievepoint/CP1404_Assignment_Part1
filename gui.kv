@@ -2,34 +2,89 @@ BoxLayout:
     orientation: "horizontal"
     BoxLayout:
         orientation: "vertical"
-        Label:
+        Button:
             id: list_items
-            text:
             text: "List of all times"
             font_size: 16
 #            padding_horizontal:
 #            padding_vertical:
 
-    BoxLayout:
-        orientation: "vertical"
-        text:
-        text: "Hire Items"
-        font_size: 16
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                text: "Hire Items"
+                font_size: 16
 
-    BoxLayout:
-        orientation: "vertical"
-        text:
-        text: "Return Items"
-        font_size: 16
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                text: "Return Items"
+                font_size: 16
 
-    BoxLayout:
-        orientation: "vertical"
-        text: "Confirm"
-        font_size: 16
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                text: "Confirm"
+                font_size: 16
 
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                text: "Add new Item"
+                font_size: 16
+            Popup:
+                id: mainBox
+                size_hint: (.7, .7)
+                title: "Add New Item"
     BoxLayout:
+        id: inputs
         orientation: "vertical"
-        text: "Add new Item"
-        font_size: 16
+            Label:
+                text: "Item Name: "
+                height: "48dp"
+            TextInput:
+                id: newItem
+                value: ""
+                height: "48dp"
+            Label:
+                text: "Item Description"
+                height: "48dp"
+            TextInput:
+                id: newItemDescription
+                value: ""
+                height: "48dp"
+                multiline: False
+            Label:
+                text: "Item Price"
+                height: "48dp"
+            TextInput:
+                id: newItemPrice
+                value: ""
+                height: "48dp"
+            Button:
+                text: "Save Entry"
+                on_press: app.press_save(newItem.text, newItemDescription.text, newItemPrice.text)
+            Button:
+                text: "Cancel"
+                on_press: app.press_cancel()
+            Label:
+                text: app.status_text
+#                BoxLayout:
+#                    orientation: "vertical"
+#                    BoxLayout:
+#                        orientation: 'horizontal'
+#                        BoxLayout:
+#                            orientation: 'vertical'
+#                            size_hint_x: 0.3
+#                            Button:
+#                                id: saveButton
+#                                text: "Save Item"
+#                                on_release: app.press_add()
+#                            Button:
+#                                id
 
-    BoxLayout:
+
+
+
+
+#    BoxLayout:
