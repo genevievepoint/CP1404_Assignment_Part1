@@ -1,6 +1,5 @@
 BoxLayout:
     id: mainBox
-    orientation: "horizontal"
 
     Popup:
         id: popup
@@ -12,6 +11,7 @@ BoxLayout:
             id: inputs
             orientation: 'vertical'
             Label:
+                id: new_item_name_display
                 text: 'New Item Name: '
                 size_hint_y: None
                 height: '48dp'
@@ -23,6 +23,7 @@ BoxLayout:
                 multiline: False
                 write_tab: False
             Label:
+                id: new_item_description_display
                 text: 'New Item Description: '
                 size_hint_y: None
                 height: '48dp'
@@ -34,6 +35,7 @@ BoxLayout:
                 multiline: False
                 write_tab: False
             Label:
+                id: new_item_price_display
                 text: 'Price Per Day: '
                 size_hint_y: None
                 height: '48dp'
@@ -52,38 +54,54 @@ BoxLayout:
                 on_release: app.press_cancel()
 
     BoxLayout:
-        orientation: "horizontal"
+        id: Box1
+        orientation: "vertical"
+
         BoxLayout:
-            orientation: "vertical"
-            Button:
-                id: list_items
-                text: "List of all items"
-                font_size: 16
-#            padding_horizontal:
-#            padding_vertical:
+            orientation: "horizontal"
 
-        #BoxLayout:
-            #orientation: "vertical"
-            Button:
-                text: "Hire Items"
-                font_size: 16
+            BoxLayout:
+                id: Box3
+                orientation: "vertical"
+                size_hint: 0.2, 1
+                Button:
+                    id: list_items
+                    text: "List of all items"
+                    font_size: 16
+                    on_release: app.press_list()
 
-        #BoxLayout:
-            #orientation: "vertical"
-            Button:
-                text: "Return Items"
-                font_size: 16
+                Button:
+                    id: hire_item_button
+                    text: "Hire Items"
+                    font_size: 16
+                    on_release: app.press_hire()
 
-        #BoxLayout:
-            #orientation: "vertical"
-            Button:
-                text: "Confirm"
-                font_size: 16
+                Button:
+                    id: return_item_button
+                    text: "Return Items"
+                    font_size: 16
+                    on_release: app.press_reutrn()
 
-        #BoxLayout:
-            #orientation: "vertical"
-            Button:
-                id:add_new_item_button
-                text: "Add new Item"
-                font_size: 16
-                on_release: app.press_add()
+                Button:
+                    id: confirm_button
+                    text: "Confirm"
+                    font_size: 16
+                    on_release: app.press_confirm()
+
+                Button:
+                    id:add_new_item_button
+                    text: "Add new Item"
+                    font_size: 16
+                    on_release: app.press_add()
+
+            GridLayout:
+                id: items_grid
+                cols: 1
+                orientation: "vertical"
+
+        BoxLayout:
+            id: Box2
+            size_hint_x: 1
+            size_hint_y: 0.15
+            Label:
+                id: status_text

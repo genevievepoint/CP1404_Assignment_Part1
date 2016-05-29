@@ -46,7 +46,8 @@ def load_items(filename):
     with open(filename, 'r') as file_in:
         lines = file_in.readlines()
         results = [line.strip().split(',') for line in lines]
-        # print(results)
+
+        print(results)
     return results
 
 
@@ -55,30 +56,31 @@ def list_all_items(results):
     print("All items on file (* indicates item out on hire)")
 
     # Formats the prices to sit in the same position in each row
-    counter = 0
+
+
     main_counter = 0
     blank_space = ' '
     for i in results:
         working_items = results[main_counter]
-    spacing_length = 50 - (len(working_items[0] + working_items[1]))
 
-    # print(working_items)
+        spacing_length = 60 - (len(working_items[0] + working_items[1]))
 
-    for i in range(1, spacing_length, 1):
-        blank_space += ' '
-        counter += 1
 
-    if working_items[3] == 'in':
-        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " "))
-        main_counter += 1
+
+        for i in range(1, spacing_length, 1):
+            blank_space += ' '
+
+
+
+        if working_items[3] == 'in':
+            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " "))
+
+        elif working_items[3] == 'out':
+            print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " * "))
+
         blank_space = ' '
-    elif working_items[3] == 'out':
-        print("{} - {} ({}){}\t\t\t= ${}\t{}".format(main_counter, working_items[0], working_items[1], blank_space, working_items[2], " * "))
         main_counter += 1
-        blank_space = ' '
 
-        print(working_items)
-        return results
 
 
 def hire_item(results):
@@ -116,7 +118,6 @@ def hire_item(results):
     else:
         print("No items available for hire")
 
-    return results
 
 
 # def hire_item(item_list):
@@ -182,8 +183,6 @@ def return_item(results):
 
     else:
         print("No items are hired")
-
-        return results
 
 
 def add_item(item_list):
