@@ -37,8 +37,8 @@ def main():
         print()
         chosen_menu_option = input('Input your selection: ')
     save_items(item_list, filename='items.csv')
-    quit()
     print("Have a nice day!")
+    quit()
 
 
 def load_items(filename):

@@ -1,9 +1,11 @@
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.core.window import Window
+# from kivy.core.window import Window
 from kivy.uix.button import Button
-from kivy.properties import StringProperty
+# from kivy.properties import StringProperty
 from A2 import load_items
+# from itemlist import get_item_names
+from item import Item
 
 filename = 'items.csv'
 list_of_items = load_items(filename)
@@ -15,7 +17,7 @@ class MyApp(App):
 
     def __init__(self, **kwargs):
         super(MyApp, self).__init__(**kwargs)
-        self.items = {load_items}
+        self.items = Item()
 
 
 # Creates the window and provides the basic information used in the start up of the program
@@ -31,6 +33,10 @@ class MyApp(App):
             temp_button = Button(text=items)
             temp_button.bind(on_release=self.press_entry)
             self.root.ids.entriesBox.add_widget(temp_button)
+
+    # def create_item_buttons(self):
+    #     for items in self.items:
+
 
     # def press_entry(self, instance):
     #     items = instance.text
@@ -50,7 +56,7 @@ class MyApp(App):
         self.root.ids.popup.open()
 
     def press_save_new_item(self, new_item_name, new_item_description, new_item_price):
-        self.items[new_item_name] = new_item_description, new_item_price
+        self.items[new_item_name] = new_item_name, new_item_description, new_item_price
         self.root.ids.entriesBox.cols = len(self.items)
         # self.items[new_item_description] = new_item_description
         # self.root.ids.entriesBox.cols = len(self.items)
