@@ -7,6 +7,7 @@ BoxLayout:
         title: "New Item"
         on_parent:
             if self.parent == mainBox: self.parent.remove_widget(self)
+
         BoxLayout:
             id: inputs
             orientation: 'vertical'
@@ -53,6 +54,7 @@ BoxLayout:
                 text: 'Cancel'
                 on_release: app.press_cancel()
 
+
     BoxLayout:
         id: Box1
         orientation: "vertical"
@@ -80,7 +82,7 @@ BoxLayout:
                     id: return_item_button
                     text: "Return Items"
                     font_size: 16
-                    on_release: app.press_reutrn()
+                    on_release: app.press_return()
 
                 Button:
                     id: confirm_button

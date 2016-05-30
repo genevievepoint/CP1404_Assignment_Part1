@@ -28,6 +28,8 @@ for i in range(0, len(list_of_items), 1):
 # print(Test_list.find_item_logical_position("Game"))
 # print(Test_list.get_items(Test_list.find_item_logical_position("Game")))
 TOTAL_HIRE_PRICE = ''
+HIRE_ITEM_LIST = []
+RETURN_ITEM_LIST = []
 
 # The custom App class
 class MyApp(App):
@@ -40,7 +42,6 @@ class MyApp(App):
 
 # Creates the window and provides the basic information used in the start up of the program
     def build(self):
-        # Window.size = (700, 700)
         self.title = "EquipmentHire"
         self.root = Builder.load_file('gui.kv')
         self.create_entry_buttons()
@@ -72,19 +73,30 @@ class MyApp(App):
             current_item_position = self.items.find_item_logical_position(current_item)
             current_item_object = self.items.get_items(current_item_position)
             if current_item_object.status == 'in':
-
+                current_item_position = self.items.find_item_logical_position(current_item)
+                current_item_object = self.items.get_items(current_item_position)
+                current_item_name = current_item_object.name
+                current_item_description = current_item_object.description
+                current_item_price = current_item_object.price
+                current_item_status = current_item_object.status
+                self.root.ids.status_text.text = "Hiring:{} {} {} {}".format(current_item_name, current_item_description
+                                                                             , current_item_price)
 
         elif self.running_mode == 'return':
             current_item = instance.text
             current_item_position = self.items.find_item_logical_position(current_item)
             current_item_object = self.items.get_items(current_item_position)
             if current_item_object.status == 'out':
-        instance.state = 'down'
+                current_item_position = self.items.find_item_logical_position(current_item)
+                current_item_object = self.items.get_items(current_item_position)
+                current_item_name = current_item_object.name
+                current_item_description = current_item_object.description
+                current_item_price = current_item_object.price
+                current_item_status = current_item_object.status
+                self.root.ids.status_text.text = "Returning: {}".format(current_item_name)
 
-    # def press_clear(self):
-    #     for instance in self.root.ids.entriesBox.children:
-    #         instance.state = 'normal'
-    #     self.status_text = ""
+        instance.state = 'down'
+        # instance.state = 'normal'
 
     def press_add(self):
         """
@@ -136,14 +148,39 @@ class MyApp(App):
 
     def press_list(self):
         self.running_mode = 'list'
+        current_item = self.items.return_all()
+        current_item_position = self.items.find_item_logical_position(current_item)
+        current_item_object = self.items.get_items(current_item_position)
+        current_item_name = current_item_object.name
+        current_item_description = current_item_object.description
+        current_item_price = current_item_object.price
+        current_item_status = current_item_object.status
+        self.root.ids.status_text.text = "{} {} {} {}".format(current_item_name, current_item_description,
+                                                              current_item_price, current_item_status)
 
     def press_hire(self):
+        global TOTAL_HIRE_PRICE
+        global HIRE_ITEM_LIST
         self.running_mode = 'hire'
+        TOTAL_HIRE_PRICE = ''
+        HIRE_ITEM_LIST = []
+        hiring_items = self.items.return_all()
+        HIRE_ITEM_LIST.append(hiring_items)
+        self.root.ids.status_text.text = "{} {} {} {}".format("Hiring", HIRE_ITEM_LIST, "for", TOTAL_HIRE_PRICE)
 
     def press_return(self):
+        global RETURN_ITEM_LIST
         self.running_mode = 'return'
 
+        RETURN_ITEM_LIST = []
+        returning_items = self.items.return_all()
+        RETURN_ITEM_LIST.append(returning_items)
+        self.root.ids.status_text.text = "{} {}".format("Returning: ", RETURN_ITEM_LIST)
+
     def press_confirm(self):
+        self.confirm = 'confirm'
+        on_press = self.confirm
+        
         """Change colours of items, and status depending on mode"""
 
     def on_stop(self):
