@@ -1,3 +1,9 @@
+"""Genevieve Point
+30 May 2016
+This creates an app that allows people to hire and return items loaded in from a file and saves them back into the file
+    on exit. The app also allows the addition of new items
+"""
+
 from kivy.app import App
 from kivy.lang import Builder
 # from kivy.core.window import Window
@@ -180,7 +186,7 @@ class MyApp(App):
     def press_confirm(self):
         self.confirm = 'confirm'
         on_press = self.confirm
-        
+
         """Change colours of items, and status depending on mode"""
 
     def on_stop(self):

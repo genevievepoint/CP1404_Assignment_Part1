@@ -1,5 +1,7 @@
-# Genevieve Point
-
+"""Genevieve Point
+30 May 2016
+This is the item class that creates the formatting for each item in the list
+"""
 
 class Item:
     def __init__(self, name, description, price, status):

@@ -1,4 +1,7 @@
-# Genevieve Point
+"""Genevieve Point
+30 May 2016
+This class creates the itemList and searches for positions and items within the list and adds new items into the list
+"""
 from A2 import load_items
 
 # filename = 'items.csv'
